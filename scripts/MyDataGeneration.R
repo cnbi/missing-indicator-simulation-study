@@ -9,10 +9,10 @@
 ## Model variables:
 ## id = repeat every id three times.
 ## t = time point 10, 9, 8.
-## mother.smoke (m) = For the time point=8 it is from a binomial distribution with size 1 and probability 0.5. At 
-##    time points 9 and 10, the value is the same as the time point 8.
+## mother.smoke (m) = For the time point=8 it is from a binomial distribution with size 1 and probability 0.5. At
+##  time points 9 and 10, the value is the same as the time point 8.
 ## y_1 = At time point 8 the value is from a binomial distribution with size 1 and probability 0.2 (as the proportion in the example).
-##    At time points 9 and 10 the answer depends on the response of previous time point.
+##  At time points 9 and 10 the answer depends on the response of previous time point.
 ## y = -0.293 + (0.296*m) - (0.243*t) + (2.211*y_1), from Agresti (2002).
 
 
@@ -28,7 +28,7 @@ MyDataGeneration <- function(samp=samp, proportion=proportion){
   
   ##Estimate y at t=8
   odds <- exp(-(-0.293 + (0.296*full_data[full_data$t == 8, "mother.smoke"]) - (0.243*8) + 
-                  (2.211*full_data[full_data$t == 8, "y_1"]))) # t=8
+                  (2.211*full_data[full_data$t == 8, "y_1"])))
   probability <- 1/(1 + odds)
   full_data[full_data$t == 8,  "y"] <-  rbinom(n = samp, size = 1, prob = probability)
   
@@ -100,12 +100,12 @@ MyDataGeneration <- function(samp=samp, proportion=proportion){
     mu <- -1 - (0.2*full$y_1) - (0.3*full$y) 
   }
   prob <- exp(mu) / (1 + exp(mu))
-  missing <- rbinom(n = nrow(mnar_df), size = 1,prob = prob)
+  missing <- rbinom(n = nrow(mnar_df), size = 1, prob = prob)
   mnar_df$missing <- missing
   ##Replace y with "m"
   for (y in 1:nrow(mnar_df)) {
     if (mnar_df[y, "missing"] == 1) {
-      mnar_df[y, "y"] = "m"
+      mnar_df[y, "y"] <- "m"
     }
   }
   ##Replace y_1 with "m"
@@ -116,7 +116,7 @@ MyDataGeneration <- function(samp=samp, proportion=proportion){
       }
     }       
   }
-  output = list(
+  output <- list(
     "Non-missing" = full_data,
     MCAR = mcar_df,
     MAR = mar_df,
