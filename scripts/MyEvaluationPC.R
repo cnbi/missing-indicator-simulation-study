@@ -40,7 +40,6 @@ output <- capture.output(b, file = NULL, append = FALSE)
 output_df <- as.data.frame(output)
 kable(output_df, format = "latex")
 
-
 effectsize::eta_squared(manova.test)
 
 # Univariate ------------------------------------------------------------------------
@@ -60,9 +59,9 @@ mothers.aov
 ## Boxplot for previous response means interaction sample:proportion
 ggplot(estimates_population, aes(x = factor(estimates_population$samp), y = estimates_population[, 7], fill = factor(estimates_population$samp))) +
     geom_boxplot(position = position_dodge()) +
-    facet_wrap(~prop, labeller = labeller(prop = proportion_lab)) + geom_hline(yintercept = 0 , linetype = "dashed", color = "red") +
+    facet_wrap(~prop, labeller = labeller(prop = proportion_lab)) + geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
     labs(x = "Sample size", y = "Bias of previous response") + theme(legend.position = "none") 
 ## Boxplot only proportion
 ggplot(estimates_population, aes(x = factor(estimates_population$prop), y = estimates_population[ ,7])) +
-    geom_boxplot(position = position_dodge()) + geom_hline(yintercept = 0 , linetype = "dashed", color = "red") +
+    geom_boxplot(position = position_dodge()) + geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
     labs(x = "Proportion of missing", y = "Bias of previous response") + scale_x_discrete(labels = c("25%", "40%"))
